@@ -1,0 +1,27 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://hdtradeservices.com.au/sitemap.xml
+Sitemap: https://hdtradeservices.com.au/image-sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 10
+
+# Important pages
+Allow: /plumbing
+Allow: /gas-fitting
+Allow: /air-conditioning
+Allow: /roofing
+Allow: /emergency
+Allow: /hot-water
+Allow: /blocked-drains
+Allow: /leak-detection
+Allow: /booking
+
+# Prevent crawling of certain paths
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+# Remove the XML disallow to allow sitemaps to be crawled

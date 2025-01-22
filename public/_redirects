@@ -1,0 +1,70 @@
+# Force HTTPS
+http://* https://:splat 301!
+
+# Redirect www to non-www
+https://www.hdtradeservices.com.au/* https://hdtradeservices.com.au/:splat 301!
+http://www.hdtradeservices.com.au/* https://hdtradeservices.com.au/:splat 301!
+
+# Handle client-side routing
+/* /index.html 200
+
+# Specific route handling with proper status codes
+/plumbing/* /index.html 200
+/gas-fitting/* /index.html 200
+/air-conditioning/* /index.html 200
+/roofing/* /index.html 200
+/booking/* /index.html 200
+/contact/* /index.html 200
+/emergency/* /index.html 200
+/hot-water/* /index.html 200
+/blocked-drains/* /index.html 200
+/leak-detection/* /index.html 200
+
+# Plumbing service specific routes
+/plumbing/drain-cleaning/* /index.html 200
+/plumbing/hot-water/* /index.html 200
+/plumbing/fixtures/* /index.html 200
+/plumbing/toilet/* /index.html 200
+/plumbing/pipes/* /index.html 200
+/plumbing/sewer/* /index.html 200
+/plumbing/renovations/* /index.html 200
+/plumbing/pressure/* /index.html 200
+
+# Gas Fitting service specific routes
+/gas-fitting/leak-detection/* /index.html 200
+/gas-fitting/appliance-installation/* /index.html 200
+/gas-fitting/line-installation/* /index.html 200
+/gas-fitting/heater-services/* /index.html 200
+/gas-fitting/cooktop/* /index.html 200
+/gas-fitting/safety/* /index.html 200
+/gas-fitting/compliance/* /index.html 200
+/gas-fitting/emergency/* /index.html 200
+
+# Roofing service specific routes
+/roofing/sealant/* /index.html 200
+/roofing/downpipes/* /index.html 200
+/roofing/flashing/* /index.html 200
+/roofing/skylight/* /index.html 200
+/roofing/ventilation/* /index.html 200
+/roofing/metal-roof/* /index.html 200
+/roofing/maintenance/* /index.html 200
+/roofing/gutter-guard/* /index.html 200
+
+# Air Conditioning service specific routes
+/air-conditioning/split-system/* /index.html 200
+/air-conditioning/ducted/* /index.html 200
+/air-conditioning/emergency/* /index.html 200
+/air-conditioning/diagnostics/* /index.html 200
+/air-conditioning/optimization/* /index.html 200
+/air-conditioning/maintenance/* /index.html 200
+/air-conditioning/replacement/* /index.html 200
+
+# Prevent redirect loops
+/.well-known/* /.well-known/:splat 200
+/api/* /api/:splat 200
+
+# Handle old URLs (if any exist)
+/services/plumbing /plumbing 301
+/services/gas /gas-fitting 301
+/services/air-conditioning /air-conditioning 301
+/services/roofing /roofing 301

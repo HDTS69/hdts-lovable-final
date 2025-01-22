@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Home Page Images -->
+  <url>
+    <loc>https://hdtradeservices.com.au/</loc>
+    <image:image>
+      <image:loc>https://hdtradeservices.com.au/lovable-uploads/5a63ed35-57aa-44f6-bf08-2471a210aeb2.png</image:loc>
+      <image:title>HD Trade Services - Professional Plumbing, Gas Fitting, Roofing & Air Conditioning</image:title>
+      <image:caption>24/7 Emergency Services in Brisbane</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://hdtradeservices.com.au/lovable-uploads/f71afdbc-168f-4fd4-85a9-63b4386c87af.png</image:loc>
+      <image:title>HD Trade Services Logo</image:title>
+    </image:image>
+  </url>
+
+  <!-- Roofing Service Images -->
+  <url>
+    <loc>https://hdtradeservices.com.au/roofing</loc>
+    <image:image>
+      <image:loc>https://hdtradeservices.com.au/lovable-uploads/roofing/roof-repairs.jpg</image:loc>
+      <image:title>Professional Roof Repairs</image:title>
+      <image:caption>Expert roof repairs and maintenance services</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hdtradeservices.com.au/roofing/leak-detection</loc>
+    <image:image>
+      <image:loc>https://hdtradeservices.com.au/lovable-uploads/roofing/leak-detection.jpg</image:loc>
+      <image:title>Roof Leak Detection</image:title>
+      <image:caption>Advanced leak detection and waterproofing solutions</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hdtradeservices.com.au/roofing/leak-investigation</loc>
+    <image:image>
+      <image:loc>https://hdtradeservices.com.au/lovable-uploads/roofing/leak-investigation.jpg</image:loc>
+      <image:title>Roof Leak Investigation</image:title>
+      <image:caption>Thorough roof leak investigation services</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hdtradeservices.com.au/roofing/maintenance</loc>
+    <image:image>
+      <image:loc>https://hdtradeservices.com.au/lovable-uploads/roofing/maintenance.jpg</image:loc>
+      <image:title>Roof Maintenance Services</image:title>
+      <image:caption>Regular roof maintenance and inspections</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hdtradeservices.com.au/roofing/metal-roofing</loc>
+    <image:image>
+      <image:loc>https://hdtradeservices.com.au/lovable-uploads/roofing/metal-roofing.jpg</image:loc>
+      <image:title>Metal Roofing Services</image:title>
+      <image:caption>Professional metal roofing installation and repairs</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Air Conditioning Service Images -->
+  <url>
+    <loc>https://hdtradeservices.com.au/air-conditioning</loc>
+    <image:image>
+      <image:loc>https://hdtradeservices.com.au/lovable-uploads/air-conditioning/ac-installation.jpg</image:loc>
+      <image:title>Air Conditioning Installation & Repairs</image:title>
+      <image:caption>Professional AC installation and servicing</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hdtradeservices.com.au/air-conditioning/split-system</loc>
+    <image:image>
+      <image:loc>https://hdtradeservices.com.au/lovable-uploads/air-conditioning/split-system.jpg</image:loc>
+      <image:title>Split System Air Conditioning</image:title>
+      <image:caption>Expert split system installation and maintenance</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hdtradeservices.com.au/air-conditioning/ducted</loc>
+    <image:image>
+      <image:loc>https://hdtradeservices.com.au/lovable-uploads/air-conditioning/ducted.jpg</image:loc>
+      <image:title>Ducted Air Conditioning</image:title>
+      <image:caption>Professional ducted system solutions</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hdtradeservices.com.au/air-conditioning/emergency</loc>
+    <image:image>
+      <image:loc>https://hdtradeservices.com.au/lovable-uploads/air-conditioning/emergency.jpg</image:loc>
+      <image:title>Emergency AC Services</image:title>
+      <image:caption>24/7 emergency air conditioning repairs</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Plumbing Service Images -->
+  <url>
+    <loc>https://hdtradeservices.com.au/plumbing</loc>
+    <image:image>
+      <image:loc>https://hdtradeservices.com.au/lovable-uploads/plumbing/emergency-plumbing.jpg</image:loc>
+      <image:title>Emergency Plumbing Services</image:title>
+      <image:caption>24/7 emergency plumbing solutions</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Gas Fitting Service Images -->
+  <url>
+    <loc>https://hdtradeservices.com.au/gas-fitting</loc>
+    <image:image>
+      <image:loc>https://hdtradeservices.com.au/lovable-uploads/gas-fitting/gas-services.jpg</image:loc>
+      <image:title>Professional Gas Fitting Services</image:title>
+      <image:caption>Licensed gas fitting and installation services</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Emergency Services Images -->
+  <url>
+    <loc>https://hdtradeservices.com.au/emergency</loc>
+    <image:image>
+      <image:loc>https://hdtradeservices.com.au/images/emergency/24-7-service.jpg</image:loc>
+      <image:title>24/7 Emergency Services</image:title>
+      <image:caption>Round-the-clock emergency trade services</image:caption>
+    </image:image>
+  </url>
+</urlset>

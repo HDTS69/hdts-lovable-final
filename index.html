@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/lovable-uploads/56078428-a482-4794-ba4f-2d25c75fea93.png" />
+    <link rel="canonical" href="https://hdtradeservices.com.au" />
+    <base href="/" />
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11553460915"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-11553460915');
+    </script>
+    
+    <div id="meta-tags"></div>
+    <div id="analytics"></div>
+    <div id="structured-data"></div>
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/src/index.css" as="style" />
+    <link rel="preload" href="https://cdn.gpteng.co/gptengineer.js" as="script" />
+    <link rel="preload" href="/src/main.tsx" as="script" />
+    
+    <!-- Preconnect to critical domains -->
+    <link rel="preconnect" href="https://maps.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Load scripts with appropriate attributes -->
+    <script src="https://cdn.gpteng.co/gptengineer.js" type="module" defer></script>
+    <script type="module" src="/src/main.tsx" defer></script>
+    <link rel="stylesheet" href="/src/index.css" />
+    
+    <!-- Load Google Maps with error handling -->
+    <script>
+      window.initMap = function() {
+        console.log('Google Maps loaded successfully');
+      };
+      window.gm_authFailure = function() {
+        console.error('Google Maps authentication failed');
+        document.dispatchEvent(new CustomEvent('google-maps-auth-error'));
+      };
+    </script>
+    <script 
+      async 
+      defer 
+      src="https://maps.googleapis.com/maps/api/js?key=%VITE_GOOGLE_MAPS_API_KEY%&libraries=places&callback=initMap"
+      onerror="console.error('Failed to load Google Maps script')"
+    ></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

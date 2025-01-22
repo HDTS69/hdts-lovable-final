@@ -1,0 +1,73 @@
+.intro-text {
+    max-width: 800px;
+    margin: 0 auto 2rem;
+}
+
+.tabs-container {
+    @apply w-full max-w-5xl mx-auto bg-white rounded-lg shadow-sm p-6;
+}
+
+.hot-water-tabs {
+    @apply flex flex-wrap gap-4 mb-6;
+}
+
+.tab-item {
+    @apply flex items-center gap-2 px-4 py-2 rounded-lg cursor-pointer transition-colors duration-300 text-gray-600 hover:bg-teal-50 hover:text-teal-700;
+}
+
+.tab-item.active {
+    @apply bg-teal-500 text-white hover:bg-teal-600 hover:text-white;
+}
+
+.storage-subtabs {
+    @apply flex gap-2 mb-4;
+}
+
+.subtabs-container {
+    @apply flex flex-wrap gap-3 mb-6 border-t border-gray-100 pt-4;
+}
+
+.subtab-item {
+    @apply px-4 py-1.5 rounded-full cursor-pointer transition-colors duration-300 text-sm text-gray-600 hover:bg-teal-50 hover:text-teal-700;
+}
+
+.subtab-item.active {
+    @apply bg-teal-100 text-teal-700;
+}
+
+.system-content {
+    @apply mb-8;
+}
+
+.tab-icon {
+    @apply flex-shrink-0;
+}
+
+.tab-item:hover .tab-icon,
+.tab-item.active .tab-icon {
+    color: #00B894;
+}
+
+.faq-section {
+    @apply mt-8 border-t border-gray-100 pt-6;
+}
+
+.faq-toggle {
+    @apply w-full flex items-center justify-between text-lg font-semibold text-gray-700 hover:text-teal-700 transition-colors duration-300;
+}
+
+.faq-content {
+    @apply mt-4 space-y-4;
+}
+
+.faq-item {
+    @apply bg-gray-50 rounded-lg p-4;
+}
+
+.faq-question {
+    @apply text-lg font-semibold text-gray-700 mb-2;
+}
+
+.faq-answer {
+    @apply text-gray-600;
+} 
