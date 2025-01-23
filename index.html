@@ -32,23 +32,6 @@
     <!-- Load scripts with appropriate attributes -->
     <script type="module" src="/src/main.tsx" defer></script>
     <link rel="stylesheet" href="/src/index.css" />
-    
-    <!-- Load Google Maps with error handling -->
-    <script>
-      window.initMap = function() {
-        console.log('Google Maps loaded successfully');
-      };
-      window.gm_authFailure = function() {
-        console.error('Google Maps authentication failed');
-        document.dispatchEvent(new CustomEvent('google-maps-auth-error'));
-      };
-    </script>
-    <script 
-      async 
-      defer 
-      src="https://maps.googleapis.com/maps/api/js?key=%VITE_GOOGLE_MAPS_API_KEY%&libraries=places&callback=initMap"
-      onerror="console.error('Failed to load Google Maps script')"
-    ></script>
   </head>
   <body>
     <div id="root"></div>

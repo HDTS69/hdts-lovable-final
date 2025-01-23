@@ -10,6 +10,7 @@ import { useConfetti } from '@/hooks/useConfetti';
 import { trackBookingConversion } from '@/utils/analytics';
 import { useGooglePlaces } from '@/hooks/useGooglePlaces';
 import { SUPABASE_PUBLISHABLE_KEY } from "@/integrations/supabase/client";
+import { initializeGoogleMaps } from '../utils/maps';
 
 interface BookingFormProps {
   scrollToBooking?: () => void;
@@ -44,6 +45,14 @@ export const BookingForm: React.FC<BookingFormProps> = ({ scrollToBooking }) => 
         return;
       }
       
+      if (!isGoogleMapsLoaded && attempts === 0) {
+        try {
+          initializeGoogleMaps();
+        } catch (error) {
+          console.error('Error initializing Google Maps:', error);
+        }
+      }
+      
       attempts++;
       if (attempts < maxAttempts) {
         timeoutId = setTimeout(checkGoogleMapsLoaded, 100);
@@ -65,7 +74,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ scrollToBooking }) => 
       document.removeEventListener('google-maps-auth-error', handleAuthError);
       if (timeoutId) clearTimeout(timeoutId);
     };
-  }, []);
+  }, [isGoogleMapsLoaded]);
 
   const { initAutocomplete } = useGooglePlaces({
     onPlaceSelected: (place) => {
