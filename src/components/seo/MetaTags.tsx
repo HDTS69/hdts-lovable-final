@@ -1,4 +1,3 @@
-import React from 'react';
 
 export const MetaTags = () => {
   return (
@@ -48,13 +47,11 @@ export const MetaTags = () => {
         rel="preload" 
         as="image" 
         href="/lovable-uploads/5a63ed35-57aa-44f6-bf08-2471a210aeb2.png"
-        fetchPriority="high"
       />
       <link 
         rel="preload" 
         as="image" 
         href="/lovable-uploads/0c71726d-aa61-47ee-b839-97c1d56eea6f.png"
-        fetchPriority="high"
       />
     </>
   );

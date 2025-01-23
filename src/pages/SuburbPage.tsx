@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { StickyHeader } from '@/components/StickyHeader';
@@ -7,7 +7,7 @@ import { Footer } from '@/components/Footer';
 import { BookingForm } from '@/components/BookingForm';
 import { FAQSection, type FAQSectionRef } from '@/components/FAQSection';
 import { ServiceList } from '@/components/ServiceList';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { smoothScrollTo } from "@/utils/smoothScroll";
 import { SuburbContent } from '@/components/suburb/SuburbContent';
 import { LoadingState } from '@/components/suburb/LoadingState';
@@ -29,7 +29,6 @@ const services = [
 
 const SuburbPage = () => {
   const { slug = '' } = useParams<{ slug: string }>();
-  const navigate = useNavigate();
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const faqRef = useRef<FAQSectionRef>(null);
 
@@ -116,8 +115,7 @@ const SuburbPage = () => {
         <ServiceList 
           services={services}
           isOpen={isServicesOpen}
-          onOpenChange={setIsServicesOpen}
-        />
+          onOpenChange={setIsServicesOpen} serviceType={''}        />
         
         <ReviewsSection />
         <ImpactSection />

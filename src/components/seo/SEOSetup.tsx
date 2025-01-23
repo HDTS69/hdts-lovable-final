@@ -1,31 +1,43 @@
 import React, { useEffect } from 'react';
-import { createRoot } from 'react-dom/client';
+import { createRoot, Root } from 'react-dom/client';
 import { MetaTags } from './MetaTags';
 import { Analytics } from './Analytics';
 import { StructuredData } from './StructuredData';
 
 export const SEOSetup = () => {
+  const roots = new Map<string, Root>();
+
   useEffect(() => {
-    // Mount MetaTags
-    const metaTagsContainer = document.getElementById('meta-tags');
-    if (metaTagsContainer) {
-      const metaTagsRoot = createRoot(metaTagsContainer);
-      metaTagsRoot.render(<MetaTags />);
-    }
+    // Helper function to create or reuse root
+    const renderToContainer = (containerId: string, Component: React.ComponentType) => {
+      const container = document.getElementById(containerId);
+      if (!container) {
+        console.warn(`Container with ID "${containerId}" not found.`);
+        return;
+      }
 
-    // Mount Analytics
-    const analyticsContainer = document.getElementById('analytics');
-    if (analyticsContainer) {
-      const analyticsRoot = createRoot(analyticsContainer);
-      analyticsRoot.render(<Analytics />);
-    }
+      if (!roots.has(containerId)) {
+        const root = createRoot(container); // Only createRoot if it doesn't already exist
+        roots.set(containerId, root);
+      }
 
-    // Mount StructuredData
-    const structuredDataContainer = document.getElementById('structured-data');
-    if (structuredDataContainer) {
-      const structuredDataRoot = createRoot(structuredDataContainer);
-      structuredDataRoot.render(<StructuredData />);
-    }
+      const root = roots.get(containerId)!;
+      root.render(<Component />);
+    };
+
+    // Render components
+    renderToContainer('meta-tags', MetaTags);
+    renderToContainer('analytics', Analytics);
+    renderToContainer('structured-data', StructuredData);
+
+    // Cleanup function
+    return () => {
+      // Defer unmounting to avoid race conditions
+      setTimeout(() => {
+        roots.forEach((root) => root.unmount());
+        roots.clear();
+      }, 0); // Defer unmounting to the next tick
+    };
   }, []);
 
   return null;

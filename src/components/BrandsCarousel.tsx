@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { CarouselTrack } from './brands/CarouselTrack';
 import { slideAnimation, noCopyStyles } from './brands/CarouselStyles';
 import type { BrandLogo } from './brands/types';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 const logos: BrandLogo[] = [
   { 

@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HelmetProvider } from 'react-helmet-async';
 import { SEOSetup } from "@/components/seo/SEOSetup";
 import Index from "./pages/Index";
 import Booking from "./pages/Booking";
@@ -62,68 +63,70 @@ const queryClient = new QueryClient({
 });
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <SEOSetup />
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/booking" element={<Booking />} />
-          <Route path="/terms" element={<TermsOfService />} />
-          <Route path="/privacy" element={<PrivacyPolicy />} />
-          <Route path="/plumbing" element={<PlumbingService />} />
-          <Route path="/gas-fitting" element={<GasFittingService />} />
-          <Route path="/roofing" element={<RoofingService />} />
-          <Route path="/air-conditioning" element={<AirConditioningService />} />
-          <Route path="/roofing-home" element={<RoofingPage />} />
-          <Route path="/:slug" element={<SuburbPage />} />
-          
-          {/* Plumbing Service Routes */}
-          <Route path="/plumbing/hot-water" element={<HotWater />} />
-          <Route path="/plumbing/drain-cleaning" element={<DrainCleaning />} />
-          <Route path="/plumbing/fixtures" element={<Fixtures />} />
-          <Route path="/plumbing/toilet" element={<Toilet />} />
-          <Route path="/plumbing/pipes" element={<Pipes />} />
-          <Route path="/plumbing/sewer" element={<Sewer />} />
-          <Route path="/plumbing/renovations" element={<Renovations />} />
-          <Route path="/plumbing/pressure" element={<Pressure />} />
-          
-          {/* Gas Fitting Service Routes */}
-          <Route path="/gas-fitting/leak-detection" element={<GasLeak />} />
-          <Route path="/gas-fitting/appliance-installation" element={<GasAppliance />} />
-          <Route path="/gas-fitting/line-installation" element={<GasLine />} />
-          <Route path="/gas-fitting/heater-services" element={<GasHeater />} />
-          <Route path="/gas-fitting/cooktop" element={<GasCooktop />} />
-          <Route path="/gas-fitting/safety" element={<GasSafety />} />
-          <Route path="/gas-fitting/compliance" element={<GasCompliance />} />
-          <Route path="/gas-fitting/emergency" element={<EmergencyGas />} />
-          
-          {/* Roofing Service Routes */}
-          <Route path="/roofing/repairs" element={<RoofRepairs />} />
-          <Route path="/roofing/leak-detection" element={<RoofLeakDetection />} />
-          <Route path="/roofing/leak-investigation" element={<LeakInvestigation />} />
-          <Route path="/roofing/maintenance" element={<RoofMaintenance />} />
-          <Route path="/roofing/report" element={<RoofReport />} />
-          <Route path="/roofing/metal-roof" element={<MetalRoof />} />
-          <Route path="/roofing/downpipes" element={<Downpipes />} />
-          <Route path="/roofing/ventilation" element={<RoofVentilation />} />
-          <Route path="/roofing/tile-repair" element={<RoofTileRepair />} />
-          <Route path="/roofing/gutter-guard" element={<GutterGuard />} />
-          
-          {/* Air Conditioning Service Routes */}
-          <Route path="/air-conditioning/split-system" element={<SplitSystem />} />
-          <Route path="/air-conditioning/ducted" element={<DuctedAC />} />
-          <Route path="/air-conditioning/emergency" element={<EmergencyAC />} />
-          <Route path="/air-conditioning/diagnostics" element={<ACDiagnostics />} />
-          <Route path="/air-conditioning/optimization" element={<ACOptimization />} />
-          <Route path="/air-conditioning/maintenance" element={<ACMaintenance />} />
-          <Route path="/air-conditioning/replacement" element={<ACReplacement />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <HelmetProvider>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <SEOSetup />
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/booking" element={<Booking />} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/plumbing" element={<PlumbingService />} />
+            <Route path="/gas-fitting" element={<GasFittingService />} />
+            <Route path="/roofing" element={<RoofingService />} />
+            <Route path="/air-conditioning" element={<AirConditioningService />} />
+            <Route path="/roofing-home" element={<RoofingPage />} />
+            <Route path="/:slug" element={<SuburbPage />} />
+            
+            {/* Plumbing Service Routes */}
+            <Route path="/plumbing/hot-water" element={<HotWater />} />
+            <Route path="/plumbing/drain-cleaning" element={<DrainCleaning />} />
+            <Route path="/plumbing/fixtures" element={<Fixtures />} />
+            <Route path="/plumbing/toilet" element={<Toilet />} />
+            <Route path="/plumbing/pipes" element={<Pipes />} />
+            <Route path="/plumbing/sewer" element={<Sewer />} />
+            <Route path="/plumbing/renovations" element={<Renovations />} />
+            <Route path="/plumbing/pressure" element={<Pressure />} />
+            
+            {/* Gas Fitting Service Routes */}
+            <Route path="/gas-fitting/leak-detection" element={<GasLeak />} />
+            <Route path="/gas-fitting/appliance-installation" element={<GasAppliance />} />
+            <Route path="/gas-fitting/line-installation" element={<GasLine />} />
+            <Route path="/gas-fitting/heater-services" element={<GasHeater />} />
+            <Route path="/gas-fitting/cooktop" element={<GasCooktop />} />
+            <Route path="/gas-fitting/safety" element={<GasSafety />} />
+            <Route path="/gas-fitting/compliance" element={<GasCompliance />} />
+            <Route path="/gas-fitting/emergency" element={<EmergencyGas />} />
+            
+            {/* Roofing Service Routes */}
+            <Route path="/roofing/repairs" element={<RoofRepairs />} />
+            <Route path="/roofing/leak-detection" element={<RoofLeakDetection />} />
+            <Route path="/roofing/leak-investigation" element={<LeakInvestigation />} />
+            <Route path="/roofing/maintenance" element={<RoofMaintenance />} />
+            <Route path="/roofing/report" element={<RoofReport />} />
+            <Route path="/roofing/metal-roof" element={<MetalRoof />} />
+            <Route path="/roofing/downpipes" element={<Downpipes />} />
+            <Route path="/roofing/ventilation" element={<RoofVentilation />} />
+            <Route path="/roofing/tile-repair" element={<RoofTileRepair />} />
+            <Route path="/roofing/gutter-guard" element={<GutterGuard />} />
+            
+            {/* Air Conditioning Service Routes */}
+            <Route path="/air-conditioning/split-system" element={<SplitSystem />} />
+            <Route path="/air-conditioning/ducted" element={<DuctedAC />} />
+            <Route path="/air-conditioning/emergency" element={<EmergencyAC />} />
+            <Route path="/air-conditioning/diagnostics" element={<ACDiagnostics />} />
+            <Route path="/air-conditioning/optimization" element={<ACOptimization />} />
+            <Route path="/air-conditioning/maintenance" element={<ACMaintenance />} />
+            <Route path="/air-conditioning/replacement" element={<ACReplacement />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </HelmetProvider>
 );
 
 export default App;

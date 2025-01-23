@@ -3,7 +3,7 @@ import { PhoneCall, Calendar } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { smoothScrollTo } from "@/utils/smoothScroll";
 
-export function StickyHeader({ scrollToBooking }: { scrollToBooking: () => void }) {
+export function StickyHeader({ }: { scrollToBooking: () => void }) {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -11,7 +11,7 @@ export function StickyHeader({ scrollToBooking }: { scrollToBooking: () => void 
     if (location.pathname === '/') {
       window.scrollTo({
         top: 0,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
     } else {
       navigate('/');
@@ -42,7 +42,6 @@ export function StickyHeader({ scrollToBooking }: { scrollToBooking: () => void 
                 className="h-full w-full object-contain cursor-pointer hover:opacity-80 transition-opacity"
                 onClick={handleLogoClick}
                 loading="eager"
-                fetchPriority="high"
                 decoding="async"
                 width={96}
                 height={64}
@@ -55,7 +54,6 @@ export function StickyHeader({ scrollToBooking }: { scrollToBooking: () => void 
                 alt="HD TRADE SERVICES"
                 className="h-full w-auto object-contain"
                 loading="eager"
-                fetchPriority="high"
                 decoding="async"
                 width={200}
                 height={16}
@@ -69,7 +67,7 @@ export function StickyHeader({ scrollToBooking }: { scrollToBooking: () => void 
             <Button
               size="lg"
               className="bg-white text-teal-500 hover:bg-gray-200 transition-colors duration-300 group"
-              onClick={() => window.location.href = 'tel:1300420911'}
+              onClick={() => (window.location.href = 'tel:1300420911')}
             >
               <PhoneCall className="mr-2 h-4 w-4 transition-transform group-hover:rotate-12" />
               Call Now
@@ -89,7 +87,7 @@ export function StickyHeader({ scrollToBooking }: { scrollToBooking: () => void 
             <Button
               size="sm"
               className="bg-white text-teal-500 hover:bg-gray-200 transition-colors duration-300 group"
-              onClick={() => window.location.href = 'tel:1300420911'}
+              onClick={() => (window.location.href = 'tel:1300420911')}
             >
               <PhoneCall className="h-4 w-4" />
             </Button>
