@@ -1,10 +1,9 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { StickyHeader } from "@/components/StickyHeader";
 import { ReviewsSection } from '@/components/ReviewsSection';
 import { ImpactSection } from '@/components/ImpactSection';
 import { BrandsCarousel } from '@/components/BrandsCarousel';
-import { HeroSection } from '@/components/HeroSection';
-import { FeaturesSection } from '@/components/FeaturesSection';
+import HeroSection from '@/components/HeroSection';
 import { BookingForm } from '@/components/BookingForm';
 import { BackToTop } from '@/components/BackToTop';
 import { FAQSection, type FAQSectionRef } from '@/components/FAQSection';
@@ -12,111 +11,19 @@ import { CallToAction } from '@/components/CallToAction';
 import { Footer } from '@/components/Footer';
 import { InstagramFeed } from '@/components/InstagramFeed';
 import { smoothScrollTo } from "@/utils/smoothScroll";
-import type { PlumbingServiceRef } from "@/components/services/PlumbingService";
-import type { GasFittingServiceRef } from "@/components/services/GasFittingService";
-import type { RoofingServiceRef } from "@/components/services/RoofingService";
-import type { AirConditioningServiceRef } from "@/components/services/AirConditioningService";
-import { TestGoogleReviews } from '@/components/TestGoogleReviews';
 import { AnimatedServiceIcon } from '@/components/AnimatedServiceIcon';
 import { motion } from 'framer-motion';
-import { Clock, Flame, Home, Wind, DollarSign, Award, Shield } from 'lucide-react';
+import { Clock, Shield, Award, DollarSign } from 'lucide-react';
 import { AnimatedWrench, AnimatedFlame, AnimatedHome, AnimatedWind } from '@/components/animated-icons';
-import { useLocation } from 'react-router-dom';
 import { ReviewGrid } from "@/components/reviews/ReviewGrid";
 
 const Index = () => {
   const bookingSectionRef = useRef<HTMLDivElement>(null);
   const faqRef = useRef<FAQSectionRef>(null);
-  const plumbingRef = useRef<HTMLDivElement>(null);
-  const plumbingServiceRef = useRef<PlumbingServiceRef>(null);
-  const gasFittingRef = useRef<HTMLDivElement>(null);
-  const gasFittingServiceRef = useRef<GasFittingServiceRef>(null);
-  const roofingRef = useRef<HTMLDivElement>(null);
-  const roofingServiceRef = useRef<RoofingServiceRef>(null);
-  const airConditioningRef = useRef<HTMLDivElement>(null);
-  const airConditioningServiceRef = useRef<AirConditioningServiceRef>(null);
-  const location = useLocation();
-
-  useEffect(() => {
-    const state = location.state as { openService?: string } | null;
-    if (state?.openService) {
-      let ref: HTMLDivElement | null = null;
-      let serviceRef: any = null;
-
-      switch (state.openService) {
-        case 'plumbing':
-          ref = plumbingRef.current;
-          serviceRef = plumbingServiceRef.current;
-          break;
-        case 'gas':
-          ref = gasFittingRef.current;
-          serviceRef = gasFittingServiceRef.current;
-          break;
-        case 'roofing':
-          ref = roofingRef.current;
-          serviceRef = roofingServiceRef.current;
-          break;
-        case 'air-conditioning':
-          ref = airConditioningRef.current;
-          serviceRef = airConditioningServiceRef.current;
-          break;
-      }
-
-      if (ref && serviceRef) {
-        // First, open the services
-        serviceRef.openServices();
-        
-        // Then scroll to the section after a delay
-        setTimeout(() => {
-          const rect = ref?.getBoundingClientRect();
-          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-          const targetY = rect?.top + scrollTop - 120; // 120px offset for header
-          window.scrollTo({
-            top: targetY,
-            behavior: 'instant'
-          });
-        }, 100);
-      }
-
-      // Clear the state after handling
-      window.history.replaceState(null, '');
-    }
-  }, [location.state]);
 
   const scrollToBooking = () => {
     if (bookingSectionRef.current) {
       smoothScrollTo(bookingSectionRef.current);
-    }
-  };
-
-  const handleServiceClick = (service: string) => {
-    let ref: HTMLDivElement | null = null;
-    let serviceRef: any = null;
-
-    switch (service) {
-      case 'plumbing':
-        ref = plumbingRef.current;
-        serviceRef = plumbingServiceRef.current;
-        break;
-      case 'gas':
-        ref = gasFittingRef.current;
-        serviceRef = gasFittingServiceRef.current;
-        break;
-      case 'roofing':
-        ref = roofingRef.current;
-        serviceRef = roofingServiceRef.current;
-        break;
-      case 'air-conditioning':
-        ref = airConditioningRef.current;
-        serviceRef = airConditioningServiceRef.current;
-        break;
-    }
-
-    if (ref && serviceRef) {
-      smoothScrollTo(ref, 120);
-      setTimeout(() => {
-        serviceRef.openServices();
-      }, 800);
     }
   };
 
@@ -147,39 +54,35 @@ const Index = () => {
         <div className="w-full py-12 md:py-16 lg:py-20">
           <div className="container px-4 sm:px-6">
             <div className="grid gap-6 md:gap-8 grid-cols-1">
-              <div ref={plumbingRef} id="plumbing-services">
+              <div id="plumbing-services">
                 <AnimatedServiceIcon
                   icon={<AnimatedWrench className="h-8 w-8" />}
                   title="Plumbing"
                   description="Emergency repairs and installations"
-                  ref={plumbingServiceRef}
                   path="/plumbing"
                 />
               </div>
-              <div ref={gasFittingRef} id="gas-fitting-services">
+              <div id="gas-fitting-services">
                 <AnimatedServiceIcon
                   icon={<AnimatedFlame className="h-8 w-8" />}
                   title="Gas Fitting"
                   description="Licensed services for home and business"
-                  ref={gasFittingServiceRef}
                   path="/gas-fitting"
                 />
               </div>
-              <div ref={roofingRef} id="roofing-services">
+              <div id="roofing-services">
                 <AnimatedServiceIcon
                   icon={<AnimatedHome className="h-8 w-8" />}
                   title="Roof Repairs"
                   description="Expert maintenance and repairs"
-                  ref={roofingServiceRef}
                   path="/roofing"
                 />
               </div>
-              <div ref={airConditioningRef} id="air-conditioning-services">
+              <div id="air-conditioning-services">
                 <AnimatedServiceIcon
                   icon={<AnimatedWind className="h-8 w-8" />}
                   title="Air Conditioning"
                   description="Installation and servicing of AC systems"
-                  ref={airConditioningServiceRef}
                   path="/air-conditioning"
                 />
               </div>
@@ -202,90 +105,52 @@ const Index = () => {
                 </p>
               </div>
               <div className="grid w-full grid-cols-1 md:grid-cols-4 gap-8 mt-8">
-                <motion.div 
-                  className="flex flex-col items-center space-y-3 p-4"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <motion.div
-                    animate={{
-                      rotate: [0, 360],
-                    }}
-                    transition={{
-                      duration: 20,
-                      repeat: Infinity,
-                      ease: "linear"
-                    }}
+                {[
+                  {
+                    icon: <Clock className="h-12 w-12 text-teal-500" strokeWidth={1.5} />,
+                    title: "24/7 Service",
+                    description: "Emergency response any time, day or night",
+                    animation: { rotate: [0, 360] }
+                  },
+                  {
+                    icon: <Shield className="h-12 w-12 text-teal-500" strokeWidth={1.5} />,
+                    title: "Licensed & Insured",
+                    description: "Fully qualified professionals you can trust",
+                    animation: { scale: [1, 1.1, 1] }
+                  },
+                  {
+                    icon: <Award className="h-12 w-12 text-teal-500" strokeWidth={1.5} />,
+                    title: "Satisfaction Guaranteed",
+                    description: "We're not happy until you're happy",
+                    animation: { y: [0, -5, 0] }
+                  },
+                  {
+                    icon: <DollarSign className="h-12 w-12 text-teal-500" strokeWidth={1.5} />,
+                    title: "Finance Options",
+                    description: "We offer convenient finance options, as well as Zip Pay, so you can pay in easy and flexible instalments",
+                    animation: { scale: [1, 1.2, 1], rotate: [0, 10, -10, 0] }
+                  }
+                ].map((feature, index) => (
+                  <motion.div 
+                    key={index}
+                    className="flex flex-col items-center space-y-3 p-4"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
                   >
-                    <Clock className="h-12 w-12 text-teal-500" strokeWidth={1.5} />
+                    <motion.div
+                      animate={feature.animation}
+                      transition={{
+                        duration: index === 0 ? 20 : index === 3 ? 3 : 2,
+                        repeat: Infinity,
+                        ease: "linear"
+                      }}
+                    >
+                      {feature.icon}
+                    </motion.div>
+                    <h3 className="text-xl font-bold">{feature.title}</h3>
+                    <p className="text-zinc-500 text-base">{feature.description}</p>
                   </motion.div>
-                  <h3 className="text-xl font-bold">24/7 Service</h3>
-                  <p className="text-zinc-500 text-base">Emergency response any time, day or night</p>
-                </motion.div>
-                
-                <motion.div 
-                  className="flex flex-col items-center space-y-3 p-4"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <motion.div
-                    animate={{
-                      scale: [1, 1.1, 1],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  >
-                    <Shield className="h-12 w-12 text-teal-500" strokeWidth={1.5} />
-                  </motion.div>
-                  <h3 className="text-xl font-bold">Licensed & Insured</h3>
-                  <p className="text-zinc-500 text-base">Fully qualified professionals you can trust</p>
-                </motion.div>
-                
-                <motion.div 
-                  className="flex flex-col items-center space-y-3 p-4"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <motion.div
-                    animate={{
-                      y: [0, -5, 0],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  >
-                    <Award className="h-12 w-12 text-teal-500" strokeWidth={1.5} />
-                  </motion.div>
-                  <h3 className="text-xl font-bold">Satisfaction Guaranteed</h3>
-                  <p className="text-zinc-500 text-base">We're not happy until you're happy</p>
-                </motion.div>
-
-                <motion.div 
-                  className="flex flex-col items-center space-y-3 p-4"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <motion.div
-                    animate={{
-                      scale: [1, 1.2, 1],
-                      rotate: [0, 10, -10, 0],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  >
-                    <DollarSign className="h-12 w-12 text-teal-500" strokeWidth={1.5} />
-                  </motion.div>
-                  <h3 className="text-xl font-bold">Finance Options</h3>
-                  <p className="text-zinc-500 text-base">We offer convenient finance options, as well as Zip Pay, so you can pay in easy and flexible instalments</p>
-                </motion.div>
+                ))}
               </div>
             </div>
           </div>
@@ -304,7 +169,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Brands - White (keeping this white as requested) */}
+      {/* Brands - White */}
       <section className="bg-white">
         <BrandsCarousel />
       </section>
@@ -329,7 +194,7 @@ const Index = () => {
         <CallToAction scrollToBooking={scrollToBooking} />
       </section>
 
-      <Footer handleServiceClick={handleServiceClick} handleFaqClick={handleFaqClick} />
+      <Footer handleServiceClick={() => {}} handleFaqClick={handleFaqClick} />
       <BackToTop />
     </>
   );
