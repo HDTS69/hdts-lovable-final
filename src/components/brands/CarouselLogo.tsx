@@ -32,20 +32,20 @@ export const CarouselLogo: FC<LogoProps> = ({ logo, index, onImageError, hasErro
         <div className="animate-pulse bg-gray-200 w-32 h-16 rounded"></div>
       )}
       {!isLoading && (
-       <img
-       src={hasError || loadError ? '/placeholder.svg' : logo.src}
-       alt={logo.alt}
-       width={logo.width || 160}
-       height={logo.height || 80}
-       className="max-w-full max-h-full object-contain mix-blend-multiply grayscale hover:grayscale-0 transition-all duration-300 no-copy"
-       loading={index < 4 ? "eager" : "lazy"}
-       decoding={index < 4 ? "sync" : "async"}
-       style={{
-         minWidth: '80px',
-         minHeight: '40px',
-         objectFit: 'contain',
-       }}
-     />
+        <img
+          src={hasError || loadError ? '/placeholder.svg' : logo.src}
+          alt={logo.alt}
+          width={logo.width || 160}
+          height={logo.height || 80}
+          className="max-w-full max-h-full object-contain mix-blend-multiply grayscale hover:grayscale-0 transition-all duration-300 no-copy"
+          loading={index < 4 ? "eager" : "lazy"}
+          decoding={index < 4 ? "sync" : "async"}
+          style={{
+            minWidth: '80px',
+            minHeight: '40px',
+            objectFit: 'contain'
+          }}
+        />
       )}
     </div>
   );
