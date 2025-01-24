@@ -1,0 +1,24 @@
+@property --gradient-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes gradient-rotation {
+  0% { --gradient-angle: 0deg; }
+  100% { --gradient-angle: 360deg; }
+}
+
+.gradient-bg {
+  background: linear-gradient(
+    var(--gradient-angle),
+    #000000,
+    #001a1a,
+    #000000,
+    #003333
+  );
+  animation: gradient-rotation 15s linear infinite;
+  will-change: background;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+} 

@@ -2,34 +2,185 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="/lovable-uploads/56078428-a482-4794-ba4f-2d25c75fea93.png" />
-    <link rel="canonical" href="https://hdtradeservices.com.au" />
-    <base href="/" />
     
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11553460915"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'AW-11553460915');
-    </script>
-    
-    <div id="meta-tags"></div>
-    <div id="analytics"></div>
-    <div id="structured-data"></div>
-    
-    <!-- Preconnect to critical domains -->
-    <link rel="preconnect" href="https://maps.googleapis.com" crossorigin />
+    <!-- DNS prefetch and preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     
-    <!-- Load styles and scripts -->
-    <link rel="stylesheet" href="/src/index.css" />
-    <script type="module" src="/src/main.tsx"></script>
+    <!-- Font loading optimization -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" />
+    
+    <!-- Font loading fallback -->
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+    </noscript>
+    
+    <!-- Critical CSS -->
+    <style>
+      /* Inline critical CSS */
+      :root {
+        --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      }
+      body {
+        margin: 0;
+        font-family: var(--font-sans);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      #root {
+        min-height: 100vh;
+      }
+      /* Add font-display swap for custom fonts */
+      @font-face {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      
+      /* Image optimization styles */
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+      img.lazy {
+        opacity: 0;
+        transition: opacity 0.3s ease-in;
+      }
+      img.lazy.loaded {
+        opacity: 1;
+      }
+      .image-placeholder {
+        background: #f0f0f0;
+        position: relative;
+        overflow: hidden;
+      }
+      .image-placeholder::before {
+        content: "";
+        display: block;
+        padding-top: 56.25%; /* 16:9 aspect ratio */
+      }
+    </style>
+    
+    <link rel="stylesheet" href="/src/index.css" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="/src/index.css" />
+    </noscript>
+    
+    <!-- Preload critical JavaScript -->
+    <link 
+      rel="modulepreload" 
+      href="/src/main.tsx" 
+      as="script" 
+      crossorigin="anonymous"
+    />
+    
+    <!-- Resource hints for external services -->
+    <link rel="preconnect" href="https://maps.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    
+    <!-- Meta tags container -->
+    <div id="meta-tags"></div>
+    
+    <!-- Analytics container -->
+    <div id="analytics"></div>
+    
+    <!-- Structured data container -->
+    <div id="structured-data"></div>
+    
+    <title>HDTS Plumbing</title>
+    
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+              console.log('ServiceWorker registration successful');
+            })
+            .catch(err => {
+              console.log('ServiceWorker registration failed: ', err);
+            });
+        });
+      }
+      
+      // Lazy loading for images
+      document.addEventListener('DOMContentLoaded', function() {
+        const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+        
+        if ('loading' in HTMLImageElement.prototype) {
+          // Browser supports native lazy loading
+          lazyImages.forEach(img => {
+            img.classList.add('lazy');
+            img.addEventListener('load', () => {
+              img.classList.add('loaded');
+            });
+          });
+        } else {
+          // Fallback for browsers that don't support native lazy loading
+          const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.add('lazy');
+                img.addEventListener('load', () => {
+                  img.classList.add('loaded');
+                });
+                observer.unobserve(img);
+              }
+            });
+          });
+          
+          lazyImages.forEach(img => {
+            imageObserver.observe(img);
+          });
+        }
+      });
+    </script>
+    
+    <!-- Performance metrics monitoring -->
+    <script>
+      // Monitor Core Web Vitals
+      addEventListener('DOMContentLoaded', () => {
+        // First Contentful Paint
+        const paintEntries = performance.getEntriesByType('paint');
+        const fcp = paintEntries.find(entry => entry.name === 'first-contentful-paint');
+        if (fcp) {
+          console.log('FCP:', fcp.startTime);
+        }
+        
+        // Largest Contentful Paint
+        new PerformanceObserver((list) => {
+          const entries = list.getEntries();
+          const lastEntry = entries[entries.length - 1];
+          console.log('LCP:', lastEntry.startTime);
+        }).observe({ entryTypes: ['largest-contentful-paint'] });
+        
+        // Cumulative Layout Shift
+        new PerformanceObserver((list) => {
+          const entries = list.getEntries();
+          entries.forEach(entry => {
+            console.log('Layout shift:', entry.value, entry.sources);
+          });
+        }).observe({ entryTypes: ['layout-shift'] });
+        
+        // Time to Interactive
+        performance.mark('ttf-ready');
+        performance.measure('Time to Interactive', 'navigationStart', 'ttf-ready');
+      });
+    </script>
   </head>
   <body>
     <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

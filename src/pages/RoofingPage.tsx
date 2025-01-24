@@ -3,7 +3,7 @@ import { StickyHeader } from "@/components/StickyHeader";
 import { ReviewsSection } from '@/components/ReviewsSection';
 import { ImpactSection } from '@/components/ImpactSection';
 import { BrandsCarousel } from '@/components/BrandsCarousel';
-import { HeroSection } from '@/components/HeroSection';
+import HeroSection from '@/components/HeroSection';
 import { FeaturesSection } from '@/components/FeaturesSection';
 import { BookingForm } from '@/components/BookingForm';
 import { BackToTop } from '@/components/BackToTop';

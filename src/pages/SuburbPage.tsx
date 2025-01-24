@@ -18,7 +18,7 @@ import { BrandsCarousel } from '@/components/BrandsCarousel';
 import { InstagramFeed } from '@/components/InstagramFeed';
 import { CallToAction } from '@/components/CallToAction';
 import { BackToTop } from '@/components/BackToTop';
-import { HeroSection } from '@/components/HeroSection';
+import HeroSection from '@/components/HeroSection';
 
 const services = [
   { name: "Plumbing Services", path: "/plumbing" },

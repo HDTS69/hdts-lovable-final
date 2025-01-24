@@ -2,6 +2,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useEffect, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { useGoogleMaps } from '../../contexts/GoogleMapsContext';
 
 interface PersonalInfoFieldsProps {
   name: string;
@@ -26,83 +27,23 @@ export const PersonalInfoFields = ({
 }: PersonalInfoFieldsProps) => {
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { isLoaded, error } = useGoogleMaps();
 
   useEffect(() => {
-    let isSubscribed = true;
-    let scriptLoaded = false;
-
-    const loadGoogleMapsScript = (apiKey: string): Promise<void> => {
-      return new Promise((resolve, reject) => {
-        const existingScript = document.getElementById('google-maps-script');
-        if (existingScript) {
-          scriptLoaded = true;
-          resolve();
-          return;
+    if (isLoaded && !error) {
+      const autocomplete = new google.maps.places.Autocomplete(
+        document.getElementById('address') as HTMLInputElement,
+        { types: ['address'], componentRestrictions: { country: 'AU' } }
+      );
+      
+      autocomplete.addListener('place_changed', () => {
+        const place = autocomplete.getPlace();
+        if (place.formatted_address) {
+          setAddress(place.formatted_address);
         }
-
-        const script = document.createElement('script');
-        script.id = 'google-maps-script';
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
-        script.async = true;
-        
-        script.onload = () => {
-          scriptLoaded = true;
-          resolve();
-        };
-        script.onerror = (error) => reject(error);
-        
-        document.head.appendChild(script);
       });
-    };
-
-    const initAutocomplete = async () => {
-      try {
-        const { data, error } = await supabase.functions.invoke('get-google-places-key');
-        
-        if (error || !isSubscribed) {
-          console.error('Error fetching API key:', error);
-          return;
-        }
-
-        if (!data?.apiKey || !inputRef.current) {
-          console.error('Missing API key or input reference');
-          return;
-        }
-
-        await loadGoogleMapsScript(data.apiKey);
-
-        if (!isSubscribed || !inputRef.current) return;
-
-        try {
-          autocompleteRef.current = new google.maps.places.Autocomplete(inputRef.current, {
-            componentRestrictions: { country: "au" },
-            fields: ["formatted_address"]
-          });
-
-          autocompleteRef.current.addListener('place_changed', () => {
-            if (!autocompleteRef.current) return;
-            const place = autocompleteRef.current.getPlace();
-            if (place.formatted_address) {
-              setAddress(place.formatted_address);
-            }
-          });
-        } catch (err) {
-          console.error('Error initializing autocomplete:', err);
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
-
-    initAutocomplete();
-
-    return () => {
-      isSubscribed = false;
-      if (autocompleteRef.current) {
-        google.maps.event.clearInstanceListeners(autocompleteRef.current);
-      }
-    };
-  }, [setAddress]);
+    }
+  }, [isLoaded, error, setAddress]);
 
   return (
     <div className="grid gap-4">

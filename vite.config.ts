@@ -24,20 +24,44 @@ export default defineConfig(({ mode }) => ({
   build: {
     target: 'esnext',
     minify: 'esbuild',
+    cssCodeSplit: true,
+    sourcemap: false,
     rollupOptions: {
       output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'ui-vendor': ['@/components/ui'],
-          'utils-vendor': ['@/utils'],
-        }
+        manualChunks: (id) => {
+          // Core vendor dependencies
+          if (id.includes('node_modules')) {
+            if (id.includes('react')) return 'react-vendor';
+            if (id.includes('@heroicons')) return 'icons-vendor';
+            if (id.includes('framer-motion')) return 'animation-vendor';
+            return 'vendor';
+          }
+          // Route-based code splitting
+          if (id.includes('/pages/')) {
+            const page = id.split('/pages/')[1].split('/')[0];
+            return `page-${page}`;
+          }
+          // Feature-based code splitting
+          if (id.includes('/features/')) {
+            const feature = id.split('/features/')[1].split('/')[0];
+            return `feature-${feature}`;
+          }
+        },
+        chunkFileNames: 'assets/js/[name]-[hash].js',
+        entryFileNames: 'assets/js/[name]-[hash].js',
+        assetFileNames: 'assets/[ext]/[name]-[hash].[ext]'
       }
     },
     reportCompressedSize: false,
     chunkSizeWarningLimit: 1000
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom'],
+    include: [
+      'react', 
+      'react-dom', 
+      'react-router-dom',
+      'framer-motion'
+    ],
     exclude: ['@/components/ui']
   },
   clearScreen: false,

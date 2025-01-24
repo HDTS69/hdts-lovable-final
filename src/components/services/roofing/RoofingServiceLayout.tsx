@@ -1,88 +1,70 @@
-import { ReactNode } from "react";
-import { StickyHeader } from "@/components/StickyHeader";
-import { Footer } from "@/components/Footer";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { motion } from "framer-motion";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ServiceCard } from '../ServiceCard';
 
 interface RoofingServiceLayoutProps {
-  title: string;
-  description: string;
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
-export const RoofingServiceLayout = ({
-  title,
-  description,
-  children,
-}: RoofingServiceLayoutProps) => {
-  const navigate = useNavigate();
-  
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  const scrollToBooking = () => {
-    navigate('/booking');
-  };
-
-  const handleServiceClick = (service: string) => {
-    navigate(`/${service}`);
-  };
-
-  const handleFaqClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    navigate('/#faq');
-  };
-
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
     }
-  };
+  }
+};
 
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 }
-  };
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 }
+};
 
+export const RoofingServiceLayout: React.FC<RoofingServiceLayoutProps> = ({ children }) => {
   return (
-    <div className="min-h-screen bg-white">
-      <StickyHeader scrollToBooking={scrollToBooking} />
+    <motion.div
+      variants={container}
+      initial="hidden"
+      animate="show"
+      className="container mx-auto px-4 py-8"
+    >
+      <motion.h1 
+        variants={item}
+        className="text-4xl font-bold text-gray-900 mb-4"
+      >
+        Roofing Services
+      </motion.h1>
+      <motion.p 
+        variants={item}
+        className="text-lg text-gray-600 mb-8"
+      >
+        Complete roofing solutions to protect your property
+      </motion.p>
       
-      <main className="pt-20 pb-6">
-        <motion.div 
-          className="max-w-[1120px] mx-auto px-4"
-          variants={container}
-          initial="hidden"
-          animate="show"
-        >
-          <motion.h1 
-            variants={item}
-            className="text-3xl font-bold text-teal-700 mb-2"
-          >
-            {title}
-          </motion.h1>
-          <motion.p 
-            variants={item}
-            className="text-gray-600 mb-6"
-          >
-            {description}
-          </motion.p>
-          <motion.div variants={item}>
-            {children}
-          </motion.div>
-        </motion.div>
-      </main>
-
-      <Footer 
-        handleServiceClick={handleServiceClick} 
-        handleFaqClick={handleFaqClick} 
-      />
-    </div>
+      <motion.div variants={item}>
+        <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+          Available Services
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <ServiceCard
+            title="Roof Repairs"
+            description="Expert repairs for all types of roof damage."
+            link="/contact"
+            level={3}
+          />
+          <ServiceCard
+            title="Roof Maintenance"
+            description="Regular maintenance to extend your roof's lifespan."
+            link="/contact"
+            level={3}
+          />
+        </div>
+      </motion.div>
+      
+      <motion.div variants={item} className="mt-8">
+        {children}
+      </motion.div>
+    </motion.div>
   );
 }; 

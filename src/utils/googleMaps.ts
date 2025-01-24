@@ -1,5 +1,5 @@
 import { useEffect, useRef, useCallback, useState } from 'react';
-import { initializeGoogleMaps, getStatus, isLoaded } from '../utils/maps';
+import { initializeGoogleMaps } from '../utils/maps';
 
 interface UseGooglePlacesProps {
   onPlaceSelected: (place: google.maps.places.PlaceResult) => void;
@@ -13,14 +13,24 @@ export const useGooglePlaces = ({
   onError 
 }: UseGooglePlacesProps) => {
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
-  const [status, setStatus] = useState(getStatus());
+  const [status, setStatus] = useState<string | null>(null);
 
   const initAutocomplete = useCallback(async (input: HTMLInputElement) => {
     try {
+      const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+      if (!apiKey) {
+        throw new Error('Google Maps API key not found');
+      }
+
       // Initialize Google Maps if not already loaded
-      if (!isLoaded()) {
-        await initializeGoogleMaps();
-        setStatus(getStatus());
+      if (!window.google?.maps) {
+        await initializeGoogleMaps({
+          apiKey,
+          libraries: ['places'],
+          region: 'AU',
+          language: 'en'
+        });
+        setStatus('Google Maps initialized');
       }
 
       if (!window.google?.maps?.places) {
@@ -98,6 +108,6 @@ export const useGooglePlaces = ({
 
   return { 
     initAutocomplete,
-    ...status
+    status
   };
 };

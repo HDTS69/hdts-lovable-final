@@ -1,78 +1,90 @@
-import { useEffect, useRef, useCallback } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
+import { useGoogleMaps } from '../contexts/GoogleMapsContext';
+
+interface Place {
+  formatted_address?: string;
+  geometry?: {
+    location: {
+      lat: () => number;
+      lng: () => number;
+    };
+  };
+  [key: string]: any;
+}
 
 interface UseGooglePlacesProps {
-  onPlaceSelected: (place: google.maps.places.PlaceResult) => void;
+  onPlaceSelected?: (place: Place) => void;
   onInputChange?: (value: string) => void;
 }
 
 export const useGooglePlaces = ({ onPlaceSelected, onInputChange }: UseGooglePlacesProps) => {
+  const { isLoaded, error } = useGoogleMaps();
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
+  const listenerRef = useRef<google.maps.MapsEventListener | null>(null);
 
-  const initAutocomplete = useCallback((input: HTMLInputElement) => {
-    if (!window.google?.maps?.places) {
-      console.warn('Google Maps Places API not loaded');
+  const initAutocomplete = useCallback((inputElement: HTMLInputElement) => {
+    if (!isLoaded || error || !window.google?.maps?.places) {
       return;
     }
 
-    try {
-      // Remove any existing autocomplete
-      if (autocompleteRef.current) {
-        google.maps.event.clearInstanceListeners(autocompleteRef.current);
-      }
+    // Clean up any existing autocomplete
+    if (autocompleteRef.current) {
+      listenerRef.current?.remove();
+      autocompleteRef.current = null;
+    }
 
-      // Create new autocomplete instance
-      autocompleteRef.current = new google.maps.places.Autocomplete(input, {
-        componentRestrictions: { country: 'AU' },
-        fields: ['address_components', 'formatted_address', 'geometry'],
+    try {
+      // Initialize the Autocomplete object
+      const autocomplete = new window.google.maps.places.Autocomplete(inputElement, {
+        componentRestrictions: { country: 'au' },
+        fields: ['formatted_address', 'geometry'],
         types: ['address']
       });
 
-      // Prevent form submission on enter
-      const preventSubmit = (e: KeyboardEvent) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          e.stopPropagation();
-        }
-      };
-      input.addEventListener('keydown', preventSubmit);
+      // Store the autocomplete instance
+      autocompleteRef.current = autocomplete;
 
-      // Handle place selection
-      autocompleteRef.current.addListener('place_changed', () => {
-        const place = autocompleteRef.current?.getPlace();
-        if (place) {
-          if (!place.geometry) {
-            console.warn("Selected place has no geometry");
-            return;
-          }
+      // Add place_changed event listener
+      const listener = autocomplete.addListener('place_changed', () => {
+        const place = autocomplete.getPlace();
+        if (onPlaceSelected) {
           onPlaceSelected(place);
         }
       });
 
-      // Handle input changes
-      if (onInputChange) {
-        input.addEventListener('input', (e) => {
-          onInputChange((e.target as HTMLInputElement).value);
-        });
-      }
+      // Store the listener for cleanup
+      listenerRef.current = listener;
 
-      return () => {
-        input.removeEventListener('keydown', preventSubmit);
-        if (autocompleteRef.current) {
-          google.maps.event.clearInstanceListeners(autocompleteRef.current);
+      // Add input event listener for real-time value changes
+      const inputListener = (e: Event) => {
+        const target = e.target as HTMLInputElement;
+        if (onInputChange) {
+          onInputChange(target.value);
         }
+      };
+      inputElement.addEventListener('input', inputListener);
+
+      // Return cleanup function
+      return () => {
+        listenerRef.current?.remove();
+        inputElement.removeEventListener('input', inputListener);
+        autocompleteRef.current = null;
       };
     } catch (error) {
       console.error('Error initializing Google Places Autocomplete:', error);
+      return undefined;
     }
-  }, [onPlaceSelected, onInputChange]);
+  }, [isLoaded, error, onPlaceSelected, onInputChange]);
 
+  // Cleanup on unmount
   useEffect(() => {
     return () => {
-      if (autocompleteRef.current) {
-        google.maps.event.clearInstanceListeners(autocompleteRef.current);
+      if (listenerRef.current) {
+        listenerRef.current.remove();
       }
+      autocompleteRef.current = null;
     };
   }, []);
 
-  return { initAutocomplete };
+  return { initAutocomplete, isLoaded, error };
 }; 

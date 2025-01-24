@@ -1,12 +1,48 @@
+import { useState, useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { PostGrid } from './instagram/PostGrid';
 import { Instagram } from 'lucide-react';
-import { useInstagramFeed } from "@/hooks/useInstagramFeed";
 import { LoadingPlaceholder } from "./instagram/LoadingPlaceholder";
-import { PostGrid } from "./instagram/PostGrid";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
 
+export interface InstagramPost {
+  id: string;
+  media_url: string;
+  permalink: string;
+  caption?: string;
+  timestamp: string;
+}
+
 export const InstagramFeed = () => {
-  const { posts, isLoading, error } = useInstagramFeed();
+  const [posts, setPosts] = useState<InstagramPost[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('instagram_posts')
+          .select('*')
+          .order('timestamp', { ascending: false })
+          .limit(6);
+
+        if (error) throw error;
+        setPosts(data || []);
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error('Failed to fetch Instagram posts'));
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
+  if (error) return null;
+  if (isLoading) return null;
+  if (posts.length === 0) return null;
 
   return (
     <section className="w-full py-8 md:py-12">
