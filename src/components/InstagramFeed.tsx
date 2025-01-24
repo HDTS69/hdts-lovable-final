@@ -10,7 +10,7 @@ export interface InstagramPost {
   id: string;
   media_url: string;
   permalink: string;
-  caption?: string;
+  caption?: string | null;
   timestamp: string;
 }
 
@@ -23,13 +23,20 @@ export const InstagramFeed = () => {
     const fetchPosts = async () => {
       try {
         const { data, error } = await supabase
-          .from('instagram_posts')
+          .from('bookings')
           .select('*')
-          .order('timestamp', { ascending: false })
+          .order('created_at', { ascending: false })
           .limit(6);
 
         if (error) throw error;
-        setPosts(data || []);
+        const formattedData = (data || []).map(post => ({
+          id: post.id,
+          media_url: post.files?.[0] || '',
+          permalink: post.address,
+          caption: post.message,
+          timestamp: post.created_at,
+        }));
+        setPosts(formattedData);
       } catch (err) {
         setError(err instanceof Error ? err : new Error('Failed to fetch Instagram posts'));
       } finally {
