@@ -20,18 +20,14 @@
     <div id="analytics"></div>
     <div id="structured-data"></div>
     
-    <!-- Preload critical assets -->
-    <link rel="preload" href="/src/index.css" as="style" />
-    <link rel="preload" href="/src/main.tsx" as="script" />
-    
     <!-- Preconnect to critical domains -->
     <link rel="preconnect" href="https://maps.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     
-    <!-- Load scripts with appropriate attributes -->
-    <script type="module" src="/src/main.tsx" defer></script>
+    <!-- Load styles and scripts -->
     <link rel="stylesheet" href="/src/index.css" />
+    <script type="module" src="/src/main.tsx"></script>
   </head>
   <body>
     <div id="root"></div>
