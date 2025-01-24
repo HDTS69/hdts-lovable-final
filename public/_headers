@@ -1,13 +1,23 @@
-/*
-  Cache-Control: public, max-age=31536000
-  X-Content-Type-Options: nosniff
-  X-Frame-Options: DENY
-  X-XSS-Protection: 1; mode=block
-  Content-Security-Policy: default-src 'self'; connect-src 'self' https://*.supabase.co https://*.googleapis.com https://*.google.com https://*.google-analytics.com https://*.analytics.google.com https://*.doubleclick.net https://*.gstatic.com https://*.instagram.com https://graph.instagram.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.googleapis.com https://*.google.com https://*.googletagmanager.com https://*.google-analytics.com https://*.doubleclick.net https://*.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.googleapis.com; img-src 'self' data: blob: https://*.googleapis.com https://*.google.com https://*.gstatic.com https://*.google-analytics.com https://*.doubleclick.net; font-src 'self' data: https://fonts.gstatic.com; frame-src 'self' https://*.google.com https://*.doubleclick.net https://*.googleapis.com; worker-src 'self' blob:; manifest-src 'self'; media-src 'self'; object-src 'none'
-  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-  Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
-  Back-Forward-Cache: enabled
+Cache-Control: public, max-age=31536000
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+Content-Security-Policy: 
+  default-src 'self'; 
+  connect-src 'self' https://*.supabase.co https://*.googleapis.com https://*.google.com https://*.google-analytics.com https://*.analytics.google.com https://*.doubleclick.net https://*.gstatic.com https://*.instagram.com https://graph.instagram.com https://www.googleadservices.com; 
+  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.googleapis.com https://*.google.com https://*.googletagmanager.com https://*.google-analytics.com https://*.doubleclick.net https://*.gstatic.com https://www.googleadservices.com; 
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.googleapis.com; 
+  img-src 'self' data: blob: https://*.googleapis.com https://*.google.com https://*.gstatic.com https://*.google-analytics.com https://*.doubleclick.net https://www.googleadservices.com; 
+  font-src 'self' data: https://fonts.gstatic.com; 
+  frame-src 'self' https://*.google.com https://*.doubleclick.net https://*.googleapis.com; 
+  worker-src 'self' blob:; 
+  manifest-src 'self'; 
+  media-src 'self'; 
+  object-src 'none';
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+Referrer-Policy: strict-origin-when-cross-origin
+Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
+Back-Forward-Cache: enabled
 
 /*.html
   Cache-Control: public, max-age=0, must-revalidate
