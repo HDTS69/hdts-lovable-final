@@ -304,9 +304,9 @@ export const optimizeLCP = () => {
       }
       // Remove lazy loading from LCP images
       element.loading = 'eager';
-      // Add fetchpriority if supported
-      if ('fetchpriority' in element) {
-        element.setAttribute('fetchpriority', 'high');
+      // Add fetchPriority if supported
+      if ('fetchPriority' in element) {
+        element.setAttribute('fetchPriority', 'high');
       }
     }
     
@@ -335,8 +335,8 @@ export const optimizeLCP = () => {
           if (type === 'style' || type === 'script') {
             resource.setAttribute('importance', 'high');
           }
-          if ('fetchpriority' in resource) {
-            resource.setAttribute('fetchpriority', 'high');
+          if ('fetchPriority' in resource) {
+            resource.setAttribute('fetchPriority', 'high');
           }
         }
       });
