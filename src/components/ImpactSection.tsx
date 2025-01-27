@@ -13,7 +13,7 @@ export const ImpactSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight text-teal-700">Our Impact in Numbers</h2>
+          <h2 className="text-3xl font-bold tracking-tighter text-teal-700">Our Impact in Numbers</h2>
           <p className="text-xl text-gray-500 max-w-2xl mx-auto">See the difference we've made in our community.</p>
         </motion.div>
         

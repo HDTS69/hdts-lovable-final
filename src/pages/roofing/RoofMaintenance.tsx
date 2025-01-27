@@ -1,5 +1,5 @@
 import { RoofingServiceLayout } from "@/components/services/roofing/RoofingServiceLayout";
-import { Wrench, Shield, Settings } from "lucide-react";
+import { Shield, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const RoofMaintenance = () => {

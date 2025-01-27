@@ -20,6 +20,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ scrollToBooking }) => 
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
+  const [isManualAddress, setIsManualAddress] = useState(false);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [preferredTime, setPreferredTime] = useState('');
   const [message, setMessage] = useState('');
@@ -58,14 +59,16 @@ export const BookingForm: React.FC<BookingFormProps> = ({ scrollToBooking }) => 
       setIsGoogleMapsLoaded(false);
     };
 
-    document.addEventListener('google-maps-auth-error', handleAuthError);
-    checkGoogleMapsLoaded();
+    if (!isManualAddress) {
+      document.addEventListener('google-maps-auth-error', handleAuthError);
+      checkGoogleMapsLoaded();
+    }
 
     return () => {
       document.removeEventListener('google-maps-auth-error', handleAuthError);
       if (timeoutId) clearTimeout(timeoutId);
     };
-  }, []);
+  }, [isManualAddress]);
 
   const { initAutocomplete } = useGooglePlaces({
     onPlaceSelected: (place) => {
@@ -80,7 +83,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ scrollToBooking }) => 
   });
 
   useEffect(() => {
-    if (isGoogleMapsLoaded && addressInputRef.current) {
+    if (isGoogleMapsLoaded && addressInputRef.current && !isManualAddress) {
       try {
         const cleanup = initAutocomplete(addressInputRef.current);
         return () => {
@@ -91,7 +94,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ scrollToBooking }) => 
         setAddressError('Address autocomplete encountered an error. Please type your address manually.');
       }
     }
-  }, [isGoogleMapsLoaded, initAutocomplete]);
+  }, [isGoogleMapsLoaded, initAutocomplete, isManualAddress]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -201,18 +204,31 @@ export const BookingForm: React.FC<BookingFormProps> = ({ scrollToBooking }) => 
             />
           </div>
           <div>
-            <Label htmlFor="address" className="text-sm">Address</Label>
+            <div className="flex justify-between items-center">
+              <Label htmlFor="address" className="text-sm">Address</Label>
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="manual-address"
+                  checked={isManualAddress}
+                  onCheckedChange={(checked) => setIsManualAddress(checked as boolean)}
+                  className="h-3.5 w-3.5"
+                />
+                <label htmlFor="manual-address" className="text-xs text-gray-600">
+                  Manual Entry
+                </label>
+              </div>
+            </div>
             <Input
               id="address"
               ref={addressInputRef}
-              placeholder={addressError ? "Enter address manually" : "Start typing your address"}
+              placeholder={isManualAddress ? "Enter address manually" : "Start typing your address"}
               value={address}
               onChange={(e) => setAddress(e.target.value)}
               aria-invalid={!!addressError}
               aria-describedby={addressError ? "address-error" : undefined}
               required
               className={`mt-1 h-9 text-sm ${addressError ? 'border-red-500' : ''}`}
-              autoComplete="off"
+              autoComplete={isManualAddress ? "on" : "off"}
               disabled={isSubmitting}
             />
             {addressError && (

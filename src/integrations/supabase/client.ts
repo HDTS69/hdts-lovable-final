@@ -4,15 +4,25 @@ import type { Database } from './types';
 
 // Load Supabase configuration from environment variables
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseKey = import.meta.env.VITE_SUPABASE_KEY;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 // Export the publishable key for components that need it
-export const SUPABASE_PUBLISHABLE_KEY = supabaseKey;
+export const SUPABASE_PUBLISHABLE_KEY = supabaseAnonKey;
 
 // Validate environment variables
-if (!supabaseUrl || !supabaseKey) {
-  throw new Error("Supabase URL or Key is missing. Please check your environment variables.");
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error("Missing Supabase environment variables");
 }
 
 // Create the Supabase client
-export const supabase = createClient<Database>(supabaseUrl, supabaseKey);
+export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true,
+  },
+  realtime: {
+    params: {
+      eventsPerSecond: 10,
+    },
+  },
+});

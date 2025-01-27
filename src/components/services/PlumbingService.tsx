@@ -9,7 +9,8 @@ const plumbingServices = [
   { name: "Toilet Repairs", path: "/plumbing/toilet" },
   { name: "Pipe Repairs", path: "/plumbing/pipes" },
   { name: "Sewer & Stormwater", path: "/plumbing/sewer" },
-  { name: "Bathroom Renovations", path: "/plumbing/renovations" }
+  { name: "Bathroom Renovations", path: "/plumbing/renovations" },
+  { name: "Water Pressure", path: "/plumbing/pressure" }
 ];
 
 export type PlumbingServiceRef = {

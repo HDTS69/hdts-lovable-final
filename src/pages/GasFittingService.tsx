@@ -1,16 +1,19 @@
 import { StickyHeader } from "@/components/StickyHeader";
 import { Footer } from "@/components/Footer";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { useEffect } from "react";
 import { Flame, Wrench, AlertTriangle, Settings, Home, Construction } from "lucide-react";
 
 const GasFittingService = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+    // Set state for back navigation
+    window.history.pushState({ openService: 'gas-fitting' }, '', location.pathname);
+  }, [location.pathname]);
 
   const scrollToBooking = () => {
     navigate('/booking');
@@ -25,8 +28,23 @@ const GasFittingService = () => {
     navigate('/#faq');
   };
 
+  const handleBackClick = () => {
+    navigate('/', { 
+      state: { 
+        previousPath: '/gas-fitting',
+        openService: 'gas-fitting'
+      }
+    });
+  };
+
   return (
     <div className="min-h-screen bg-white">
+      <button 
+        onClick={handleBackClick}
+        className="fixed top-24 left-4 z-50 p-2 text-teal-600 hover:text-teal-700"
+      >
+        ← Back
+      </button>
       <StickyHeader scrollToBooking={scrollToBooking} />
       <div className="container mx-auto px-4 py-8 mt-20">
         <div className="text-center mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000 fill-mode-forwards">

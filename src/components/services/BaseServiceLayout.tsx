@@ -1,45 +1,37 @@
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
+import { type ServiceInfo } from "@/types";
 import { StickyHeader } from "@/components/StickyHeader";
 import { Footer } from "@/components/Footer";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { AlertTriangle } from "lucide-react";
 import { motion } from "framer-motion";
 
-interface BaseServiceLayoutProps {
-  title: string;
-  description: string;
-  children: ReactNode;
-  servicePath?: string;
+export interface BaseServiceLayoutProps {
+  serviceInfo: ServiceInfo;
+  showGasWarning?: boolean;
+  children?: ReactNode;
 }
 
-export const BaseServiceLayout = ({ 
-  title, 
-  description, 
-  children,
-  servicePath 
+export const BaseServiceLayout = ({
+  serviceInfo,
+  showGasWarning = false,
+  children
 }: BaseServiceLayoutProps) => {
   const navigate = useNavigate();
+  const location = useLocation();
   
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const scrollToBooking = () => {
-    navigate('/booking');
-  };
-
   const handleServiceClick = () => {
     navigate('/', { 
       state: { 
-        previousPath: servicePath || window.location.pathname,
-        openService: servicePath?.split('/')[1]
-      }
+        previousPath: location.pathname, 
+        openService: showGasWarning ? 'gas-fitting' : 'plumbing' 
+      } 
     });
-  };
-
-  const handleFaqClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    navigate('/#faq');
   };
 
   const container = {
@@ -47,27 +39,19 @@ export const BaseServiceLayout = ({
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        duration: 0.3
+        staggerChildren: 0.1
       }
     }
   };
 
-  const item = {
+  const itemAnimation = {
     hidden: { opacity: 0, y: 20 },
-    show: { 
-      opacity: 1, 
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    }
+    show: { opacity: 1, y: 0 }
   };
 
   return (
     <div className="min-h-screen bg-white">
-      <StickyHeader scrollToBooking={scrollToBooking} />
+      <StickyHeader scrollToBooking={() => navigate('/booking')} />
       
       <main className="pt-20 pb-6">
         <motion.div 
@@ -75,61 +59,115 @@ export const BaseServiceLayout = ({
           variants={container}
           initial="hidden"
           animate="show"
-          viewport={{ once: true }}
         >
           <motion.h1 
-            variants={item}
+            variants={itemAnimation}
             className="text-3xl font-bold text-teal-700 mb-2"
           >
-            {title}
+            {serviceInfo.title}
           </motion.h1>
           <motion.p 
-            variants={item}
-            className="text-gray-600 mb-6 leading-relaxed"
+            variants={itemAnimation}
+            className="text-gray-600 mb-6"
           >
-            {description}
+            {serviceInfo.description}
           </motion.p>
-          <motion.div 
-            variants={item}
-            className="grid grid-cols-1 md:grid-cols-2 gap-8"
-          >
-            <motion.div 
-              variants={item}
-              className="space-y-6"
-            >
-              {children}
-            </motion.div>
 
-            <motion.div variants={item}>
-              <div className="space-y-4">
-                <div className="relative rounded-lg overflow-hidden aspect-video bg-white shadow-sm" />
+          {showGasWarning && (
+            <motion.div 
+              variants={itemAnimation}
+              className="bg-red-50 border-l-4 border-red-500 p-4 rounded-lg mb-6"
+            >
+              <div className="flex items-center">
+                <AlertTriangle className="w-5 h-5 text-red-500 mr-2" />
+                <p className="text-red-700">
+                  If you smell gas or suspect a gas leak, evacuate the area immediately and call emergency services on 000.
+                </p>
+              </div>
+            </motion.div>
+          )}
+
+          <motion.div 
+            variants={itemAnimation}
+            className="grid grid-cols-1 md:grid-cols-2 gap-4"
+          >
+            <div>
+              <motion.div 
+                variants={itemAnimation}
+                className="bg-teal-50 p-4 rounded-lg mb-4"
+              >
+                <h3 className="text-xl font-semibold text-teal-700 mb-3 flex items-center">
+                  {serviceInfo.services.icon}
+                  {serviceInfo.services.title}
+                </h3>
+                <ul className="list-disc list-inside space-y-1.5 text-gray-700">
+                  {serviceInfo.services.items.map((service, index) => (
+                    <motion.li 
+                      key={index}
+                      variants={itemAnimation}
+                    >
+                      {service}
+                    </motion.li>
+                  ))}
+                </ul>
+              </motion.div>
+
+              <motion.div 
+                variants={itemAnimation}
+                className="bg-teal-50/50 p-4 rounded-lg mb-4"
+              >
+                <h3 className="text-xl font-semibold text-teal-700 mb-3 flex items-center">
+                  {serviceInfo.benefits.icon}
+                  {serviceInfo.benefits.title}
+                </h3>
+                <ul className="list-disc list-inside space-y-1.5 text-gray-700">
+                  {serviceInfo.benefits.items.map((benefit, index) => (
+                    <motion.li 
+                      key={index}
+                      variants={itemAnimation}
+                    >
+                      {benefit}
+                    </motion.li>
+                  ))}
+                </ul>
+              </motion.div>
+            </div>
+
+            <motion.div variants={itemAnimation}>
+              <div className="space-y-4 mb-4">
+                <div className="relative rounded-lg overflow-hidden shadow-lg aspect-video bg-white" />
+                
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="relative rounded-lg overflow-hidden aspect-square bg-white shadow-sm" />
-                  <div className="relative rounded-lg overflow-hidden aspect-square bg-white shadow-sm" />
+                  <div className="relative rounded-lg overflow-hidden shadow-lg aspect-square bg-white" />
+                  <div className="relative rounded-lg overflow-hidden shadow-lg aspect-square bg-white" />
                 </div>
               </div>
 
-              <motion.div 
-                className="mt-8 text-center"
-                whileHover={{ scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
-                <button
+              <div className="text-center">
+                <motion.button
+                  variants={itemAnimation}
                   onClick={() => navigate('/booking')}
-                  className="bg-teal-500 hover:bg-teal-600 text-white font-medium py-2.5 px-8 rounded-md transition-all duration-300 hover:shadow-lg"
+                  className="bg-teal-500 hover:bg-teal-600 text-white font-medium py-2.5 px-8 rounded-md transition-colors duration-200"
                 >
                   Book Online
-                </button>
-              </motion.div>
+                </motion.button>
+              </div>
             </motion.div>
           </motion.div>
+          {children}
         </motion.div>
       </main>
 
       <Footer 
         handleServiceClick={handleServiceClick}
-        handleFaqClick={handleFaqClick}
+        handleFaqClick={(e) => {
+          e.preventDefault();
+          navigate('/#faq');
+        }}
       />
     </div>
   );
-}; 
+}
+
+export { ServiceInfo };
+

@@ -1,16 +1,18 @@
 import { StickyHeader } from "@/components/StickyHeader";
 import { Footer } from "@/components/Footer";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { useEffect } from "react";
 import { Fan, Wrench, AlertTriangle, Activity, Gauge, Settings, Thermometer } from "lucide-react";
 
 const AirConditioningService = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+    window.history.pushState({ openService: 'air-conditioning' }, '', location.pathname);
+  }, [location.pathname]);
 
   const scrollToBooking = () => {
     navigate('/booking');

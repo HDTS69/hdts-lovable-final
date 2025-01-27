@@ -162,7 +162,7 @@ export const ReviewGrid = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 className="text-4xl font-bold text-teal-600 text-center mb-12">What Our Customers Say</h2>
+      <h2 className="text-3xl font-bold text-teal-700 text-center mb-12">What Our Customers Say</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {reviews.slice(0, displayCount).map((review) => (
           <div

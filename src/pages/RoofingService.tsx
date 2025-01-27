@@ -1,16 +1,18 @@
 import { StickyHeader } from "@/components/StickyHeader";
 import { Footer } from "@/components/Footer";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { useEffect } from "react";
-import { Fan, Wrench, Construction, Shield, Hammer, Warehouse } from "lucide-react";
+import { Fan, Wrench, Construction, Shield, Hammer, Warehouse, AlertTriangle } from "lucide-react";
 
 const RoofingService = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+    window.history.pushState({ openService: 'roofing' }, '', location.pathname);
+  }, [location.pathname]);
 
   const scrollToBooking = () => {
     navigate('/booking');
@@ -39,34 +41,40 @@ const RoofingService = () => {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {[
             {
-              title: "Roof Repairs",
-              description: "Professional repair services for all types of roofs",
+              title: "Emergency Repairs",
+              description: "24/7 emergency roof repair services for urgent issues",
+              icon: <AlertTriangle className="w-6 h-6 text-teal-500" />,
+              link: "/roofing/repairs"
+            },
+            {
+              title: "Storm Damage",
+              description: "Expert repairs for storm and weather-related damage",
               icon: <Hammer className="w-6 h-6 text-teal-500" />,
               link: "/roofing/repairs"
             },
             {
-              title: "Roof Restoration",
-              description: "Complete roof restoration and maintenance",
+              title: "Leak Repairs",
+              description: "Professional leak detection and repair services",
+              icon: <Shield className="w-6 h-6 text-teal-500" />,
+              link: "/roofing/repairs"
+            },
+            {
+              title: "Structural Repairs",
+              description: "Major structural roof repairs and reinforcement",
               icon: <Construction className="w-6 h-6 text-teal-500" />,
-              link: "/roofing/restoration"
+              link: "/roofing/repairs"
             },
             {
-              title: "Gutter Services",
-              description: "Gutter installation, repair and maintenance",
+              title: "Preventive Maintenance",
+              description: "Regular maintenance to prevent future issues",
               icon: <Wrench className="w-6 h-6 text-teal-500" />,
-              link: "/roofing/gutters"
+              link: "/roofing/repairs"
             },
             {
-              title: "Roof Ventilation",
+              title: "Ventilation Services",
               description: "Improve your roof's ventilation system",
               icon: <Fan className="w-6 h-6 text-teal-500" />,
               link: "/roofing/ventilation"
-            },
-            {
-              title: "Leak Prevention",
-              description: "Professional roof leak detection and prevention",
-              icon: <Shield className="w-6 h-6 text-teal-500" />,
-              link: "/roofing/leak-prevention"
             },
             {
               title: "Commercial Roofing",

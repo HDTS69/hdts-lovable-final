@@ -1,16 +1,22 @@
 import { StickyHeader } from "@/components/StickyHeader";
 import { Footer } from "@/components/Footer";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Card } from "@/components/ui/card";
-import { Droplet, Wrench, Bath, Settings, Waves, Home, Gauge } from "lucide-react";
+import { Droplet, Wrench, Bath, Settings, Waves, Home, Gauge, ArrowLeft } from "lucide-react";
 import { useEffect } from "react";
 
 const PlumbingService = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+    window.history.pushState({ openService: 'plumbing' }, '', location.pathname);
+  }, [location.pathname]);
+
+  const handleBackClick = () => {
+    navigate('/', { state: { openService: 'plumbing' } });
+  };
 
   const scrollToBooking = () => {
     navigate('/booking');
@@ -28,6 +34,13 @@ const PlumbingService = () => {
   return (
     <div className="min-h-screen bg-white">
       <StickyHeader scrollToBooking={scrollToBooking} />
+      <button 
+        onClick={handleBackClick}
+        className="flex items-center gap-2 px-4 py-2 m-4 text-gray-600 hover:text-gray-800"
+      >
+        <ArrowLeft size={20} />
+        Back to Services
+      </button>
       <div className="container mx-auto px-4 py-8 mt-20">
         <div className="text-center mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000 fill-mode-forwards">
           <h1 className="text-3xl font-bold text-teal-700 mb-4">Professional Plumbing Services</h1>

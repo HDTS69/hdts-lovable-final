@@ -115,7 +115,9 @@ const SuburbPage = () => {
         <ServiceList 
           services={services}
           isOpen={isServicesOpen}
-          onOpenChange={setIsServicesOpen} serviceType={''}        />
+          onOpenChange={setIsServicesOpen}
+          serviceType="suburb"
+        />
         
         <ReviewsSection />
         <ImpactSection />
