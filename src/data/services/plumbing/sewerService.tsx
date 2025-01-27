@@ -1,10 +1,10 @@
 import { type ServiceInfo } from "@/types";
-import { Wrench, Shield } from "lucide-react";
+import { Shield } from "lucide-react";
 import React from "react";
 
 // Create memoized icon components to prevent re-renders
 const ServiceIcon = React.memo(() => (
-  <Wrench className="h-5 w-5 text-teal-600 mr-2" />
+  <Shield className="h-5 w-5 text-teal-600 mr-2" />
 ));
 
 const BenefitIcon = React.memo(() => (

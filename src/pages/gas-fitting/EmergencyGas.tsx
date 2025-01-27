@@ -1,12 +1,12 @@
 import { BaseServiceLayout, type ServiceInfo } from "@/components/services/BaseServiceLayout";
-import { Wrench, Shield } from "lucide-react";
+import { Shield } from "lucide-react";
 
 const serviceInfo: ServiceInfo = {
   title: "Emergency Gas Services",
   description: "24/7 emergency gas services for your safety. Our licensed gas fitters respond quickly to gas emergencies to protect your property and family.",
   services: {
     title: "Our Emergency Services",
-    icon: <Wrench className="w-5 h-5 mr-2 text-teal-600" />,
+    icon: <Shield className="w-5 h-5 mr-2 text-teal-600" />,
     items: [
       "24/7 emergency response",
       "Gas leak detection",

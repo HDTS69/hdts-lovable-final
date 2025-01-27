@@ -1,5 +1,5 @@
 import { RoofingServiceLayout } from "@/components/services/roofing/RoofingServiceLayout";
-import { Wrench, Shield, Wind } from "lucide-react";
+import { Shield, Wind } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const DuctedAC = () => {

@@ -15,7 +15,7 @@ interface BookingFormProps {
   scrollToBooking?: () => void;
 }
 
-export const BookingForm: React.FC<BookingFormProps> = ({ scrollToBooking }) => {
+export const BookingForm: React.FC<BookingFormProps> = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -30,7 +30,6 @@ export const BookingForm: React.FC<BookingFormProps> = ({ scrollToBooking }) => 
   const { triggerConfetti } = useConfetti();
   const addressInputRef = useRef<HTMLInputElement>(null);
   const [isGoogleMapsLoaded, setIsGoogleMapsLoaded] = useState(false);
-  const [isAddressSelected, setIsAddressSelected] = useState(false);
   const [addressError, setAddressError] = useState('');
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 import { RoofingServiceLayout } from "@/components/services/roofing/RoofingServiceLayout";
-import { ClipboardList, Shield, FileText } from "lucide-react";
+import { ClipboardList, Shield } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const RoofReport = () => {

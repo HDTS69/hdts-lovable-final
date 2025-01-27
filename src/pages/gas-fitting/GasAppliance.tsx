@@ -1,12 +1,12 @@
 import { BaseServiceLayout, type ServiceInfo } from "@/components/services/BaseServiceLayout";
-import { Wrench, Shield } from "lucide-react";
+import { Shield } from "lucide-react";
 
 const serviceInfo: ServiceInfo = {
   title: "Gas Appliance Services",
   description: "Expert gas appliance installation, repair, and maintenance services. We ensure safe and efficient operation of all your gas appliances.",
   services: {
     title: "Our Installation Services",
-    icon: <Wrench className="w-5 h-5 mr-2 text-teal-600" />,
+    icon: <Shield className="w-5 h-5 mr-2 text-teal-600" />,
     items: [
       "Gas cooktop installation",
       "Gas heater installation",

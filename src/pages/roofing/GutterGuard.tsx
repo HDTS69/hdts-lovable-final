@@ -1,5 +1,5 @@
 import { RoofingServiceLayout } from "@/components/services/roofing/RoofingServiceLayout";
-import { Wrench, Shield, Filter } from "lucide-react";
+import { Shield, Filter } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const GutterGuard = () => {
