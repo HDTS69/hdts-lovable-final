@@ -1,72 +1,58 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
-import { componentTagger } from "lovable-tagger";
 
-export default defineConfig(({ mode }) => ({
-  server: {
-    host: true,
-    hmr: {
-      host: 'localhost',
-      path: '/hmr/',
-      timeout: 30000
-    },
-    watch: {
-      usePolling: true
-    }
-  },
-  plugins: [
-    react(),
-    mode === 'development' && componentTagger(),
-  ].filter(Boolean),
+// Added comment for GitHub push test
+export default defineConfig({
+  plugins: [react()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  css: {
+    postcss: './postcss.config.js',
+  },
   build: {
-    target: 'esnext',
-    minify: 'esbuild',
-    cssCodeSplit: true,
-    sourcemap: false,
+    outDir: 'dist',
+    assetsDir: 'assets',
+    sourcemap: true,
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
-          // Core vendor dependencies
-          if (id.includes('node_modules')) {
-            if (id.includes('react')) return 'react-vendor';
-            if (id.includes('@heroicons')) return 'icons-vendor';
-            if (id.includes('framer-motion')) return 'animation-vendor';
-            return 'vendor';
-          }
-          // Route-based code splitting
-          if (id.includes('/pages/')) {
-            const page = id.split('/pages/')[1].split('/')[0];
-            return `page-${page}`;
-          }
-          // Feature-based code splitting
-          if (id.includes('/features/')) {
-            const feature = id.split('/features/')[1].split('/')[0];
-            return `feature-${feature}`;
-          }
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
         },
-        chunkFileNames: 'assets/js/[name]-[hash].js',
-        entryFileNames: 'assets/js/[name]-[hash].js',
-        assetFileNames: 'assets/[ext]/[name]-[hash].[ext]'
-      }
+      },
     },
-    reportCompressedSize: false,
-    chunkSizeWarningLimit: 1000
   },
-  optimizeDeps: {
-    include: [
-      'react', 
-      'react-dom', 
-      'react-router-dom',
-      'framer-motion'
-    ],
-    exclude: ['@/components/ui']
+  server: {
+    host: true,
+    port: 5173,
+    strictPort: true,
+    hmr: {
+      host: 'localhost',
+      port: 5173,
+      path: '/hmr/',
+      timeout: 30000,
+      protocol: 'ws'
+    },
+    watch: {
+      usePolling: true
+    },
+    headers: {
+      'Content-Security-Policy': [
+        "default-src 'self'",
+        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+        "script-src 'self' 'unsafe-inline' https://maps.googleapis.com https://*.googleapis.com",
+        "img-src 'self' data: https://*.googleapis.com https://*.cdninstagram.com",
+        "connect-src 'self' ws: wss: https://*.googleapis.com https://*.supabase.co https://graph.instagram.com https://www.instagram.com https://mdfmjrcznydyyboergpx.supabase.co",
+        "font-src 'self' https://fonts.gstatic.com https://*.cdninstagram.com"
+      ].join('; ')
+    }
   },
-  clearScreen: false,
-  envPrefix: 'VITE_'
-}));
+  preview: {
+    port: 3000,
+    strictPort: true,
+    host: true
+  },
+});
