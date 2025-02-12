@@ -65,7 +65,7 @@ export const FeaturesSection = ({
               <AnimatedServiceIcon
                 icon={<AnimatedWind className="h-8 w-8" />}
                 title="Air Conditioning"
-                description="Installation and servicing of AC systems"
+                description="Expert AC installation & maintenance"
                 ref={airConditioningServiceRef}
                 path="/air-conditioning"
               />
