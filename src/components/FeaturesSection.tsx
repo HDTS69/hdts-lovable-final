@@ -56,7 +56,7 @@ export const FeaturesSection = ({
               <AnimatedServiceIcon
                 icon={<AnimatedHome className="h-8 w-8" />}
                 title="Roof Repairs"
-                description="Expert maintenance and repairs"
+                description="Professional leak detection & repairs"
                 ref={roofingServiceRef}
                 path="/roofing"
               />
