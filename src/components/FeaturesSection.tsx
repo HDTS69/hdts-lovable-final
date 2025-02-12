@@ -38,7 +38,7 @@ export const FeaturesSection = ({
               <AnimatedServiceIcon
                 icon={<AnimatedWrench className="h-8 w-8" />}
                 title="Plumbing"
-                description="Emergency repairs and installations"
+                description="24/7 emergency plumbing solutions"
                 ref={plumbingServiceRef}
                 path="/plumbing"
               />
