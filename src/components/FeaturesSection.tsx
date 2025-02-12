@@ -47,7 +47,7 @@ export const FeaturesSection = ({
               <AnimatedServiceIcon
                 icon={<AnimatedFlame className="h-8 w-8" />}
                 title="Gas Fitting"
-                description="Licensed services for home and business"
+                description="Expert gas installations & safety inspections"
                 ref={gasFittingServiceRef}
                 path="/gas-fitting"
               />
