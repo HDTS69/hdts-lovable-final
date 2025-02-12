@@ -23,6 +23,8 @@ export default defineConfig({
         },
       },
     },
+    target: ['es2015', 'safari12', 'chrome64'],
+    polyfillModulePreload: true,
   },
   server: {
     host: true,
@@ -40,12 +42,12 @@ export default defineConfig({
     },
     headers: {
       'Content-Security-Policy': [
-        "default-src 'self'",
-        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-        "script-src 'self' 'unsafe-inline' https://maps.googleapis.com https://*.googleapis.com",
-        "img-src 'self' data: https://*.googleapis.com https://*.cdninstagram.com",
+        "default-src 'self' https:",
         "connect-src 'self' ws: wss: https://*.googleapis.com https://*.supabase.co https://graph.instagram.com https://www.instagram.com https://mdfmjrcznydyyboergpx.supabase.co",
-        "font-src 'self' https://fonts.gstatic.com https://*.cdninstagram.com"
+        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+        "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://maps.googleapis.com https://*.googleapis.com",
+        "img-src 'self' data: blob: https: *",
+        "font-src 'self' data: https://fonts.gstatic.com https://*.cdninstagram.com"
       ].join('; ')
     }
   },
